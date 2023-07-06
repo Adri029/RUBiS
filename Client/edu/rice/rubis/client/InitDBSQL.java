@@ -21,21 +21,28 @@ import java.text.SimpleDateFormat;
 public class InitDBSQL {
 
     public static Connection getConnection() throws SQLException {
-        String DB_CONN_STRING = "jdbc:mysql://localhost:3306/rubis?useSSL=true&serverTimezone=UTC&rewriteBatchedStatements=true";
-        String DRIVER_CLASS_NAME = "com.mysql.cj.jdbc.Driver";
-        String USER_NAME = "root";
-        String PASSWORD = "";
+        String DB_CONN_STRING = "jdbc:postgresql://localhost:5432/rubis";
+        String DRIVER_CLASS_NAME = "org.postgresql.Driver";
+        String USER_NAME = "postgres";
+        String PASSWORD = "postgres";
 
         Connection result = null;
         try {
-            Class.forName(DRIVER_CLASS_NAME).newInstance();
-        } catch (Exception ex) {
-            System.err.println(ex.getMessage());
+            Class.forName(DRIVER_CLASS_NAME);
+        } catch (ClassNotFoundException e) {
+            System.err.println(e.getMessage());
             return result;
         }
 
+        Properties props = new Properties();
+        props.setProperty("user", USER_NAME);
+        props.setProperty("password", PASSWORD);
+        props.setProperty("ssl", "false");
+        props.setProperty("stringtype", "unspecified");
+
+
         try {
-            result = DriverManager.getConnection(DB_CONN_STRING, USER_NAME, PASSWORD);
+            result = DriverManager.getConnection(DB_CONN_STRING, props);
         } catch (SQLException e) {
             System.err.println(e.getMessage());
             return null;
@@ -290,9 +297,9 @@ public class InitDBSQL {
 
                 Calendar now = Calendar.getInstance();
 
-                String start = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss").format(now.getTime());
+                String start = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now.getTime());
                 now.add(Calendar.DATE, duration);
-                String end = new SimpleDateFormat("yyyy:MM:dd HH:mm:ss").format(now.getTime());
+                String end = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(now.getTime());
                 ps.setInt(1, i+1);
                 ps.setString(2, name);
                 ps.setString(3, description);

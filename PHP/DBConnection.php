@@ -3,9 +3,9 @@
 class DBConnection {
 
     protected $host = "localhost";
-    protected $host_type = "mysql";
-    protected $username = "root";
-    protected $password = "";
+    protected $host_type = "postgresql";
+    protected $username = "postgres";
+    protected $password = "postgres";
     protected $database = "rubis";
     protected $connection = NULL;
     protected $status = FALSE;

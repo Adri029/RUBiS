@@ -19,7 +19,7 @@ initDB:
 	${JAVA} -classpath .:./database edu.rice.rubis.client.InitDB ${PARAM}
 
 initDBSQL:
-	${JAVA} -classpath .:mysql-connector-java-6.0.6.jar:./database edu.rice.rubis.client.InitDBSQL ${PARAM}
+	${JAVA} -classpath .:postgresql-42.6.0.jar:./database edu.rice.rubis.client.InitDBSQL ${PARAM}
 
 emulator:
 	${JAVA} -classpath . edu.rice.rubis.client.ClientEmulator
